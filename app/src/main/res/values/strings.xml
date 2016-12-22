@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Sunshine</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="ActualWeather">Today, Dec 19</string>
+    <string name="MaxTemperature">40°</string>
+    <string name="MinTemperature">28°</string>
+    <string name="imageAboutActualWeather">image about actual weather</string>
+    <string name="weatherPhase">Cloudly</string>
+    <string name="list_item_forecast_textview" />
+    <string name="action_refresh">Refresh</string>
+    <string name="permission_dialog_fragment">El permiso al GPS es necesario para accecer al dato exacto de ubicacion y clima</string>
+    <string name="permission_dialog_fragment_yes">Otorgar</string>
+    <string name="permission_dialog_fragment_no">Denegar</string>
+
+</resources>
