@@ -18,35 +18,26 @@ public class MainActivity extends AppCompatActivity {//implements FeederListView
     protected void onCreate(Bundle savedInstanceState) {
         //validacion de permisos MARSHMALLOW en adelante
         if(Build.VERSION.SDK_INT  > 22){
-            final int REQUEST_CODE_ASK_PERMISSIONS = 123;//es una llave que se usa para identificar la peticion del permiso
-            //valida si el permiso GPS fue otorgado
-            //if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                //le indica al usuario porque deberia permitir el acceso al GPS(en este caso)
-                new PermissionDialogFragment().show(getFragmentManager(), "permissions");
-            } else {
+            //valida si el permiso GPS NO fue otorgado por la solicitud que se hace en el manifest
+            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                //si el usuario uso la opcion de no volver a preguntar y selecciono no otrgar el permiso al GPS, le digo poruqe es necesario
+                solicitarPermisoAlUsuario();
 
-                // No explanation needed, we can request the permission.
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        REQUEST_CODE_ASK_PERMISSIONS);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
+/*
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Log.i("rootManager","should");
+                    //le indica al usuario porque deberia permitir el acceso al GPS(en este caso)
+                    new PermissionDialogFragment().show(getFragmentManager(), "permissions");
+                    solicitarPermisoAlUsuario();
+                }else{//SI el permiso fue otorgado
+                    Log.i("rootManager","Se ha otorgado el acceso");
+                }
+*/
             }
+        }
 
-
-                Log.i("pruebas: ", String.valueOf(getPackageManager().checkPermission(Manifest.permission.INTERNET, getApplicationContext().getPackageName())));
-            }else{
-                Log.i("pruebas: ", "los permisos necesarios no fueron otorgados");
-            }
-
-
-
-/*pruebas arriba*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -67,31 +58,34 @@ public class MainActivity extends AppCompatActivity {//implements FeederListView
     public boolean onOptionsItemSelected(MenuItem item) {//asi se reemplaza el if
         return item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
     }
+    //solicita permiso para acceder al GPS
+    private void solicitarPermisoAlUsuario() {
+
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                REQUEST_CODE_ASK_PERMISSIONS);
+
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
 
-        switch (requestCode) {
-            case REQUEST_CODE_ASK_PERMISSIONS: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+        if(REQUEST_CODE_ASK_PERMISSIONS == requestCode){//compara la llave que tengo al inicio con la que recibo(debe ser igual, solo hay una)
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {//como devuelve un array me posiciono en 0
+                // OK Do something with..
+                Log.i("rootManager","podemos seguir con el programa");
+            } else {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    new PermissionDialogFragment().show(getFragmentManager(), "permissions");//le indico el porque necesito el permiso
                 }
-                return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
+        }else{
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
     }
+
 }
 
 /*

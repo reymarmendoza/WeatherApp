@@ -15,6 +15,9 @@ public class PermissionDialogFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.permission_dialog_fragment).setTitle(R.string.permission_dialog_fragment_title);
+        /*
+        cuando se necesita la interaccion del usuario puedo manejar los botones asi:
         builder.setMessage(R.string.permission_dialog_fragment)//cambiarlo para acceder al GPS y a la ubicacion
                     .setPositiveButton(R.string.permission_dialog_fragment_yes, new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int id) {
@@ -26,6 +29,7 @@ public class PermissionDialogFragment extends DialogFragment {
 
                         }
         });
+        */
         return builder.create();
     }
 }

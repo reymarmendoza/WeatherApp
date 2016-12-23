@@ -14,5 +14,6 @@
     <string name="permission_dialog_fragment">El permiso al GPS es necesario para accecer al dato exacto de ubicacion y clima</string>
     <string name="permission_dialog_fragment_yes">Otorgar</string>
     <string name="permission_dialog_fragment_no">Denegar</string>
+    <string name="permission_dialog_fragment_title">Acceso GPS</string>
 
 </resources>
