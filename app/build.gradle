@@ -15,6 +15,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "openweathermap_API_KEY", project.property('openweathermap_API_KEY')
+        }
+        debug {
+            buildConfigField "String", "openweathermap_API_KEY", project.property('openweathermap_API_KEY')
         }
     }
 }
@@ -22,4 +26,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    compile 'com.android.support:support-v4:25.1.0'
 }

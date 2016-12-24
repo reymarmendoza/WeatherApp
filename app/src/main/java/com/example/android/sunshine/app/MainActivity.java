@@ -1,48 +1,38 @@
 package com.example.android.sunshine.app;
-
+/*
+uso del api:
+http://www.survivingwithandroid.com/2013/05/build-weather-app-json-http-android.html
+acceso desde el api a cucuta:
+http://api.openweathermap.org/data/2.5/forecast/city?id=3685533&units=metric&APPID=dc53a9328f075039ef6bb8946a6e0a1e
+puedo usarlo para location          -------------------------por revisar
+http://www.survivingwithandroid.com/2014/04/using-android-location-api-weather-app.html
+ */
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v4.content.ContextCompat;
 import android.view.Menu;
-import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {//implements FeederListViewItems
-
-    final int REQUEST_CODE_ASK_PERMISSIONS = 123;//es una llave que se usa para identificar la peticion del permiso
+public class MainActivity extends Activity {//implements FeederListViewItems
+    //instancio la clase que maneja los metodos de accion
+    //WeatherAplication weatherAplication;
+    static final int REQUEST_CODE_ASK_PERMISSIONS = 123;//es una llave que se usa para identificar la peticion del permiso
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //validacion de permisos MARSHMALLOW en adelante
-        if(Build.VERSION.SDK_INT  > 22){
-            //valida si el permiso GPS NO fue otorgado por la solicitud que se hace en el manifest
-            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                //si el usuario uso la opcion de no volver a preguntar y selecciono no otrgar el permiso al GPS, le digo poruqe es necesario
-                solicitarPermisoAlUsuario();
-
-
-/*
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    Log.i("rootManager","should");
-                    //le indica al usuario porque deberia permitir el acceso al GPS(en este caso)
-                    new PermissionDialogFragment().show(getFragmentManager(), "permissions");
-                    solicitarPermisoAlUsuario();
-                }else{//SI el permiso fue otorgado
-                    Log.i("rootManager","Se ha otorgado el acceso");
-                }
-*/
-            }
-        }
+        //se valida si el cliente autorizo los permisos que se pidieron en el manifest
+        //weatherAplication.validacionDePermisosSegunVersion();
+        validacionDePermisosSegunVersion();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction().add(R.id.container, new FragmentMain()).commit();
+            getFragmentManager().beginTransaction()
+                    .add(R.id.container, new FragmentMain()).commit();
         }
 
     }
@@ -54,31 +44,36 @@ public class MainActivity extends AppCompatActivity {//implements FeederListView
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {//asi se reemplaza el if
-        return item.getItemId() == R.id.action_settings || super.onOptionsItemSelected(item);
+    public void validacionDePermisosSegunVersion() {
+        //validacion de permisos MARSHMALLOW en adelante
+        if(Build.VERSION.SDK_INT  > 22){
+            //valida si el permiso GPS NO fue otorgado por la solicitud que se hace en el manifest
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
+                //shouldShowRequestPermissionRationale no lo uso porque parece redundate a checkSelfPermission
+                solicitarPermisoAlUsuario();
+            }
+        }
     }
     //solicita permiso para acceder al GPS
     private void solicitarPermisoAlUsuario() {
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                REQUEST_CODE_ASK_PERMISSIONS);
+                MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
 
-        if(REQUEST_CODE_ASK_PERMISSIONS == requestCode){//compara la llave que tengo al inicio con la que recibo(debe ser igual, solo hay una)
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {//como devuelve un array me posiciono en 0
+        if(REQUEST_CODE_ASK_PERMISSIONS == requestCode) {//compara la llave que tengo al inicio con la que recibo(debe ser igual, solo hay una)
+            // If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // OK Do something with..
-                Log.i("rootManager","podemos seguir con el programa");
             } else {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    new PermissionDialogFragment().show(getFragmentManager(), "permissions");//le indico el porque necesito el permiso
-                }
+                new PermissionDialogFragment().show(getFragmentManager(), "permissions");//le indico el porque necesito el permiso
+                // permission denied, boo! Disable the functionality that depends on this permission.
             }
         }else{
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -87,20 +82,4 @@ public class MainActivity extends AppCompatActivity {//implements FeederListView
     }
 
 }
-
-/*
-    @Override
-    public void comunicacion(ArrayList<String> weekForecast) {
-
-        ArrayAdapter<String> forecastAdapter = new ArrayAdapter<>(
-                this, // The current context (this activity)
-                R.layout.list_item_forecast, // The name of the layout ID.
-                R.id.list_item_forecast_textview, // The ID of the textview to populate.
-                weekForecast);
-        //View view = inflater.inflate(R.layout.fragment_main, container, false);
-        ListView listView = (ListView) this.findViewById(R.id.listview_forecast);
-        listView.setAdapter(forecastAdapter);
-
-    }
-*/
 

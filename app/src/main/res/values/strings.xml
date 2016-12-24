@@ -15,5 +15,11 @@
     <string name="permission_dialog_fragment_yes">Otorgar</string>
     <string name="permission_dialog_fragment_no">Denegar</string>
     <string name="permission_dialog_fragment_title">Acceso GPS</string>
+    <string name="search_location">Buscar Mi Ubicacion</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gps_setting_title">Configuracion GPS</string>
+    <string name="gps_setting_option">GPS activado</string>
 
 </resources>
