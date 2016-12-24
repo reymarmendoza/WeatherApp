@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/gps_setting_title">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:title="@string/gps_setting_option"
+            android:key="check_box_preference_1" />
+
+    </PreferenceCategory>
+</PreferenceScreen>
