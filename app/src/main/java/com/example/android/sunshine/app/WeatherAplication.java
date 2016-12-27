@@ -31,7 +31,7 @@ import java.util.Locale;
  */
 
 public class WeatherAplication extends MainActivity{
-
+/*
     public void validacionDePermisosSegunVersion() {
         //validacion de permisos MARSHMALLOW en adelante
         if(Build.VERSION.SDK_INT  > 22){
@@ -86,7 +86,7 @@ public class WeatherAplication extends MainActivity{
                 fragmentTransaction.commit();
 
         }
-*/
+
         return true;
     }
 /*
