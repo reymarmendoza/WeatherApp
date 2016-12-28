@@ -1,10 +1,12 @@
-package com.example.android.sunshine.app;
+package com.example.android.sunshine.app.Main;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
+import com.example.android.sunshine.app.R;
 
 /**
  * Created by reyma on 22/12/2016.

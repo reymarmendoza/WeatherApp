@@ -3,10 +3,9 @@
 
     <PreferenceCategory android:title="@string/gps_setting_title">
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:title="@string/gps_setting_option"
-            android:key="check_box_preference_1" />
+        <EditTextPreference
+            android:title="@string/pref_location_key"
+            android:key="pref_location_key" />
 
     </PreferenceCategory>
 </PreferenceScreen>

@@ -1,36 +1,12 @@
-package com.example.android.sunshine.app;
+package com.example.android.sunshine.app.Main;
 
-import android.Manifest;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.MenuItem;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
-import java.util.Locale;
+import com.example.android.sunshine.app.Main.MainActivity;
 
 /**
  * Created by reyma on 24/12/2016.
  */
 
-public class WeatherAplication extends MainActivity{
+public class WeatherAplication extends MainActivity {
 /*
     public void validacionDePermisosSegunVersion() {
         //validacion de permisos MARSHMALLOW en adelante
@@ -92,7 +68,7 @@ public class WeatherAplication extends MainActivity{
 /*
     public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
         //esta variable se usa para consultas en el Log esta implementada mas abajo, nothing to worry
-        private final String LOG_TAG = FragmentMain.FetchWeatherTask.class.getSimpleName();
+        private final String LOG_TAG = MainFragment.FetchWeatherTask.class.getSimpleName();
 
         @Override
         protected Void doInBackground(String... params) {
